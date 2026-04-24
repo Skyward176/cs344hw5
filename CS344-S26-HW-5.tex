@@ -1,0 +1,463 @@
+\documentclass{article}
+
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%=====================================================
+% Add PACKAGES Here (You typically would not need to):
+%=====================================================
+
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry} % Used for page margins, often replaces fullpage
+\usepackage{amsmath,amsthm,amssymb} % amssymb added for common math symbols
+
+\usepackage{enumitem} % For custom list environments
+
+\usepackage{tcolorbox}
+% \usepackage{fullpage} % Geometry handles this better
+\usepackage[parfill]{parskip} % For paragraph spacing
+\usepackage{hyperref}
+\usepackage[nameinlink, capitalise]{cleveref} % For smart referencing
+
+\usepackage{algorithm2e} % For algorithms
+\usepackage{tikz} % For drawing diagrams
+\usepackage{siunitx} % For units
+\usepackage{graphicx}
+
+\usetikzlibrary{arrows.meta, positioning}
+
+\crefname{algocf}{Algorithm}{Algorithms}
+
+\RestyleAlgo{ruled} % Style for algorithms
+
+\definecolor{linkc}{rgb}{0.1, 0.5, 0.7}
+\definecolor{citec}{rgb}{0.6, 0.3, 0.7}
+\definecolor{urlc}{rgb}{0.5, 0.1, 0.2}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkc,
+    citecolor=citec,
+    urlcolor=urlc
+}
+
+\renewcommand{\d}{\,\mathrm{d}} % Differential d
+
+
+%=====================================================
+% Ignore This Part (But Do NOT Delete It:)
+%=====================================================
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem*{fun}{Fun with Algorithms}
+\newtheorem*{challenge}{Challenge Yourself}
+\def\fline{\rule{0.75\linewidth}{0.5pt}}
+\newcommand{\finishline}{\begin{center}\fline\end{center}}
+\newtheorem*{solution*}{Solution}
+\newenvironment{solution}{\begin{solution*}}{{\finishline} \end{solution*}}
+\newcommand{\grade}[1]{\hfill{\textbf{($\mathbf{#1}$ points)}}}
+\newcommand{\thisdate}{\today}
+\newcommand{\thissemester}{\textbf{Rutgers: Spring 2026}}
+\newcommand{\thiscourse}{CS 344: Algorithms} 
+\newcommand{\thishomework}{Number} 
+\newcommand{\thisname}{Name} 
+\newcommand{\thisextension}{Yes/No} 
+
+\headheight 40pt              
+\headsep 10pt
+
+
+\newcommand{\thisheading}{
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { \textbf{\thiscourse \hfill \thissemester} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Homework \#\thishomework \hfill} }
+       \vspace{2mm}
+         \hbox to 6.28in { { \hfill \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { \emph{Name(s): \thisname \hfill }}
+      \vspace{2mm}}
+      }
+   \end{center}
+   \bigskip
+}
+
+%=====================================================
+% Some useful MACROS (you can define your own in the same exact way also)
+%=====================================================
+
+
+\newcommand{\ceil}[1]{{\left\lceil{#1}\right\rceil}}
+\newcommand{\floor}[1]{{\left\lfloor{#1}\right\rfloor}}
+\newcommand{\prob}[1]{\Pr\paren{#1}}
+\newcommand{\expect}[1]{\Exp\bracket{#1}}
+\newcommand{\var}[1]{\textnormal{Var}\bracket{#1}}
+\newcommand{\set}[1]{\ensuremath{\left\{ #1 \right\}}}
+\newcommand{\poly}{\mbox{\rm poly}}
+
+
+%=====================================================
+% Fill Out This Part With Your Own Information:
+%=====================================================
+
+
+\renewcommand{\thishomework}{5} %Homework number
+\renewcommand{\thisname}{FIRST$_1$ LAST$_1$, FIRST$_2$ LAST$_2$, FIRST$_3$ LAST$_3$} % Enter your name here
+
+
+\begin{document}
+
+\thisheading
+
+\subsection*{Homework Policy}
+\begin{itemize}
+\item You may consult all course materials (lecture notes, textbook, slides, etc.) while writing your solutions. No external resources are permitted.
+
+
+\item \textbf{All submissions should be typeset in LaTeX, handwritten solutions are not accepted}. 
+
+\item Remember to always \textbf{prove the correctness} of your algorithms and \textbf{analyze their running time} (or any other efficiency measure asked in the question).
+
+\item Homework assignments are completed and submitted in fixed groups of 3 students. Only \textbf{one member of the group submits} the full solution on Canvas. The submission must include the names of all group members. The other two members do \textbf{not need to submit anything separately}.
+
+\item You may discuss the problems with any of your classmates, even those outside your group. However, \textbf{each group must write and submit their solutions independently}.
+
+\item Attempt the challenge problems only if you find them interesting. 
+\end{itemize}
+
+
+
+\subsection*{Acknowledgment (to be reviewed and edited as needed)}
+\begin{tcolorbox}[colframe=black,colback=white,arc=5mm]
+ \textbf{We hereby affirm that all external assistance utilized in the preparation of this document has been properly acknowledged}.
+\end{tcolorbox}
+
+\finishline
+\newpage
+
+
+\newpage
+
+
+
+
+
+
+
+\begin{problem}
+A graph \( G = (V, E) \) is dense if \( |E| = \Theta(V^2) \). Using binary heaps, Prim's algorithm for finding a minimum spanning tree runs in \( O(E \log V) \). With Fibonacci heaps, the runtime improves to \( O(E + V \log V) \), which achieves linear time $O(E)$ for dense graphs.
+
+Describe an alternative algorithm that:
+\begin{itemize}
+    \item Uses a simple data structure (avoiding Fibonacci heaps).
+    \item Runs in linear time $O(E)$for dense graphs.
+  \end{itemize}
+
+\end{problem}
+
+
+\begin{solution}
+
+    
+
+\end{solution}
+
+\newpage
+
+
+\begin{problem}
+Demonstrate failure of the following algorithm on a directed graph \( G \) with edge weights in \( \{-1, 0, 1\} \). The algorithm works by transforming \( G \) into a new graph \( G' \), where all edge weights are increased by 1, i.e., for every edge \( (x, y) \) in \( G \), the new weight in \( G' \) is \( w'(x, y) = w(x, y) + 1 \). The algorithm then runs Dijkstra’s algorithm on \( G' \) starting at source \( s \) to compute the shortest \( s \)-\( t \) path. Finally, the algorithm outputs the weight of this path in the original graph \( G \).
+
+To show that this algorithm fails, provide the following details:
+
+\begin{itemize}
+    \item The graph \( G \), including its vertices, edges, and the original edge weights \( w(x, y) \). Ensure \( G \) contains at most 7 vertices.
+    \item The source vertex \( s \) and the target vertex \( t \).
+    \item The transformation to \( G' \), including all edge weights \( w'(x, y) = w(x, y) + 1 \).
+    \item The priority queue values during the execution of Dijkstra’s algorithm on \( G' \), showing the shortest path computation step by step.
+    \item The actual shortest distance from \( s \) to \( t \) in the original graph \( G \).
+    \item The incorrect shortest distance from \( s \) to \( t \) returned by the algorithm, demonstrating where and why it fails.
+\end{itemize}
+
+
+
+\end{problem}
+
+\begin{solution}
+
+%=================================================
+    % 1. THE ALGORITHM %=====================================================
+
+
+
+
+
+%=================================================
+    % 2. PROOF OF CORRECTNESS %=====================================================
+
+
+
+
+
+%=================================================
+    % 3. RUN TIME ANALYSIS %=====================================================
+
+
+\end{solution}
+
+\newpage
+
+
+
+\begin{problem}
+You are given a weighted undirected graph $G=(V, E)$ with integer weights $w_e \in\{1,2, \ldots, W\}$ on each edge $e$, where $W \leq 25$. Given two vertices $s, t \in V$, the goal is to find the minimum weight path (or shortest path) from $s$ to $t$. Recall that Dijkstra's algorithm solves this problem in $O(n+m \log m)$ time even if we do not have the condition that $W \leq 25$. However, we now want to use this extra condition to design an even faster algorithm.
+
+Design and analyze an algorithm to find the minimum weight (shortest) $s-t$ path on these restricted weighted graphs in $O(V+E)$ time.
+
+
+
+\end{problem}
+
+
+\begin{solution}
+
+%=================================================
+    % 1. THE ALGORITHM %=====================================================
+
+
+
+
+
+%=================================================
+    % 2. PROOF OF CORRECTNESS %=====================================================
+
+
+
+
+
+%=================================================
+    % 3. RUN TIME ANALYSIS %=====================================================
+
+
+\end{solution}
+
+\newpage
+
+
+
+
+
+\begin{problem}
+    We consider two types of graphs:
+\begin{itemize}
+    \item \textbf{Vertex-Weighted Graph} \( H = (V, E) \): Each vertex \( v \) has a weight \( c(v) \). The weight of a path is the sum of vertex weights along the path. Let \( \text{dist}_H(s, v) \) represent the shortest path from \( s \) to \( v \).
+    \item \textbf{Edge-Weighted Graph} \( G = (V, E) \): Each edge \( (u, v) \) has a weight \( w(u, v) \). Let \( \text{dist}_G(s, v) \) represent the shortest path from \( s \) to \( v \).
+\end{itemize}
+
+\begin{enumerate}
+    \item[a)]
+
+
+Suppose you have an algorithm \( \text{EdgeWeightedSP}(G, s) \) that solves the edge-weighted shortest path problem in \( O(|E(G)|) \). Write pseudocode for \( \text{VertexWeightedSP}(H, s) \), which solves the vertex-weighted shortest path problem in \( O(|E(H)|) \). You can use \(\text{EdgeWeightedSP}(G, s) \) as a blackbox.
+
+
+\begin{solution}
+
+%=================================================
+    % 1. THE ALGORITHM %=====================================================
+
+
+
+
+
+%=================================================
+    % 2. PROOF OF CORRECTNESS %=====================================================
+
+
+
+
+
+%=================================================
+    % 3. RUN TIME ANALYSIS %=====================================================
+
+
+\end{solution}
+
+\newpage
+
+
+
+
+\item[b)] 
+Suppose you have an algorithm \( \text{VertexWeightedSP}(H, s) \) that solves the vertex-weighted shortest path problem in \( O(|E(H)|) \). Write pseudocode for \( \text{EdgeWeightedSP}(G, s) \), which solves the edge-weighted shortest path problem in \( O(|E(G)|) \). You can use \( \text{VertexWeightedSP}(H, s) \) as a blackbox.
+
+\end{enumerate}
+
+\end{problem}
+
+
+\begin{solution}
+
+%=================================================
+    % 1. THE ALGORITHM %=====================================================
+
+
+
+
+
+%=================================================
+    % 2. PROOF OF CORRECTNESS %=====================================================
+
+
+
+
+
+%=================================================
+    % 3. RUN TIME ANALYSIS %=====================================================
+
+
+\end{solution}
+
+\newpage
+
+
+
+
+\begin{problem}
+    Given a directed graph \( G = (V, E) \) with positive integer edge weights, let \( s \) be the source vertex. Assume all shortest path distances satisfy \( \text{dist}(s, v) \leq B \) for some parameter \( B \). Design a data structure \( D \) such that running Dijkstra’s algorithm using \( D \) results in a runtime of \( O(|E| + B) \).
+
+
+\begin{itemize}
+    \item Describe the data structure \( D \) and its three operations:
+        \begin{itemize}
+            \item \textbf{Insert:} Add a vertex with its priority.
+            \item \textbf{Extract-Min:} Remove and return the vertex with the smallest priority.
+            \item \textbf{Decrease-Key:} Update the priority of a vertex.
+        \end{itemize}
+    \item Write pseudocode for these operations to show how \( D \) achieves \( O(1) \) or \( O(B) \) time per operation as appropriate.
+    \item Justify why the runtime of Dijkstra’s algorithm becomes \( O(|E| + B) \) using \( D \).
+\end{itemize}
+
+
+\end{problem}
+
+
+\begin{solution}
+
+%=================================================
+    % 1. THE ALGORITHM %=====================================================
+
+
+
+
+
+%=================================================
+    % 2. PROOF OF CORRECTNESS %=====================================================
+
+
+
+
+
+%=================================================
+    % 3. RUN TIME ANALYSIS %=====================================================
+
+
+\end{solution}
+
+\newpage
+
+
+\begin{problem}
+Describe and analyze a modification of the Bellman–Ford algorithm that achieves the following:
+\begin{itemize}
+    \item If a negative cycle is reachable from \( s \):
+    \begin{itemize}
+        \item Return the negative cycle.
+        \item Set \( \text{dist}(v) = -\infty \) for any vertex \( v \) reachable through the cycle.
+    \end{itemize}
+    \item If no negative cycle is reachable:
+    \begin{itemize}
+        \item Return the shortest-path tree.
+        \item Compute the correct shortest-path distances \( \text{dist}(v) \) from \( s \) to every vertex \( v \).
+    \end{itemize}
+    \item The algorithm should run in \( O(VE) \) time.
+\end{itemize}
+
+
+\end{problem}
+
+
+\begin{solution}
+
+%=================================================
+    % 1. THE ALGORITHM %=====================================================
+
+
+
+
+
+%=================================================
+    % 2. PROOF OF CORRECTNESS %=====================================================
+
+
+
+
+
+%=================================================
+    % 3. RUN TIME ANALYSIS %=====================================================
+
+
+\end{solution}
+
+\newpage
+
+
+
+\begin{problem}
+    Let $G=(V, E)$ be a directed graph with weighted edges, edge weights can be positive, negative, or zero. Suppose vertices of $G$ are partitioned into $k$ disjoint subsets $V_1, V_2, \ldots, V_k$; that is, every vertex of $G$ belongs to exactly one subset $V_i$. For each $i$ and $j$, let $\delta(i, j)$ denote the minimum shortest-path distance between vertices in $V_i$ and vertices in $V_j$, that is
+
+$$
+\delta(i, j)=\min \left\{\operatorname{dist}(u, v) \mid u \in V_i \text { and } v \in V_j\right\}
+$$
+
+
+Describe an algorithm to compute $\delta(i, j)$ for all $i$ and $j$ that runs in $O(V E+k V \log V)$ time. $O(V^3)$ algorithm will get partial credit.
+\end{problem}
+
+
+
+\begin{solution}
+
+%=================================================
+    % 1. THE ALGORITHM %=====================================================
+
+
+
+
+
+%=================================================
+    % 2. PROOF OF CORRECTNESS %=====================================================
+
+
+
+
+
+%=================================================
+    % 3. RUN TIME ANALYSIS %=====================================================
+
+
+\end{solution}
+
+\newpage
+
+
+
+
+
+
+
+\end{document}
