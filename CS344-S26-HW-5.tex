@@ -291,7 +291,6 @@ Design and analyze an algorithm to find the minimum weight (shortest) $s-t$ path
     \
 
     \textbf{Runtime: }
-
     \
 
     The runtime analysis for this is the same as standard dijkstra's, however: our usage of an array of buckets allows us to update priorities in constant time. Since we only visit every vertex once, we only work on every edge once too. This results in E cost updates taking O(E) time.  
@@ -321,25 +320,32 @@ Suppose you have an algorithm \( \text{EdgeWeightedSP}(G, s) \) that solves the 
 
 
 \begin{solution}
+    \
 
-%=================================================
-    % 1. THE ALGORITHM %=====================================================
+    \textbf{Algorithm: }
+    \
+    
+    Run a modified BFS on on the graph H starting from an arbitrary vertex v. Rather than marking vertices as visited, we mark edges as visited. This makes sure we hit every possible edge.
 
+    Every time we follow an edge $E(u,v)$, we create an edge in a graph $H'$ with the weight of the destination vertex $c(v)$
 
+    Now we can run EdgeWeightedSP() to solve the verted weighted problem 
 
+    Lastly, we add the weight of the origin vertex to our calculated distance for our final answer.
+    \
 
+    \textbf{Proof:}
+    Given that we are using EdgeWeighted as a black box, we only need to prove that our transformation of the vertex weighted graph into an edge-weighted one is accurate.
+    \
 
-%=================================================
-    % 2. PROOF OF CORRECTNESS %=====================================================
+    By running BFS, we make sure to follow every edge.
 
+    By making the edge weighted graph edge weight equal to the weight of the destination vertex, we are encoding how much that vertex adds to the weight. This is the same as if it were a vertex weighted graph. 
 
+    Because this is the same, now the edgeweightedSP function can solve the vertex weight problem. All we need to do at the end is add the weight of the origin vertex, which gets lost in the conversion to an edge weighted graph
 
-
-
-%=================================================
-    % 3. RUN TIME ANALYSIS %=====================================================
-
-
+    \textbf{Runtime:}
+    The creation of our edge graph from our vertex graph takes $O(E)$ time. The blackbox alg then works in $O(E(G)) = O(E(H))$, therefore our algorithm runs in $O(E(H))$
 \end{solution}
 
 \newpage
@@ -357,24 +363,33 @@ Suppose you have an algorithm \( \text{VertexWeightedSP}(H, s) \) that solves th
 
 \begin{solution}
 
-%=================================================
-    % 1. THE ALGORITHM %=====================================================
+    \
+    \textbf{Algorithm: }
+    \
+    
+    We're starting from an edge weighted graph G.
+    
+    We run BFS modified to visit all edges as we did in part (a).
 
+    This time, however, every time we visit a new edge, we create an intermediate vertex of the same weight of the edge we visited and connect it to two new copies of the origin and destination vertices.
 
+    When we're done, we have a graph G'.
 
+    We can now run the VertexWeightedSP algorithm on G' to solve the edgeweightedSP problem.
 
+    \
 
-%=================================================
-    % 2. PROOF OF CORRECTNESS %=====================================================
+    \textbf{Proof:}
+    Given that we are using VertexWeightedSP as a black box, we only need to prove that our transformation of the edge weighted graph into an vertex-weighted one is accurate.
+    \
 
+    By running BFS, we make sure to follow every edge.
 
+    We encode the weight of each edge by creating a vertex with that weight along the path that edge traces in our new graph.
 
-
-
-%=================================================
-    % 3. RUN TIME ANALYSIS %=====================================================
-
-
+    Because the weight from u to v is the same now, we can use VertexWeightedSP to solve the shortest path problem successfully.
+    \textbf{Runtime:}
+    The creation of our vertex-weighted graph takes $O(E)$ time. The blackbox alg then works in $O(E(H)) = O(E(G))$, therefore our algorithm runs in $O(E(G))$
 \end{solution}
 
 \newpage
