@@ -133,7 +133,7 @@
 
 \subsection*{Acknowledgment:} 
 \begin{tcolorbox}[colframe=black,colback=white,arc=5mm]
- \textbf{We, hereby affirm that all external assistance utilized in the preparation of this document has been properly acknowledged}.
+Our team members, Ashlyn Balicki (zab30), Iris Martinez (bam322), and May Stepper (), collaborated extensively on this work. \textbf{We hereby affirm that all external assistance utilized in the preparation of this document has been properly acknowledged}.
 \end{tcolorbox}
 
 \finishline
@@ -161,8 +161,32 @@ Describe an alternative algorithm that:
 
 
 \begin{solution}
+    \
 
+    \textbf{Algorithm: }
+    \
+     
+    Pick an arbitrary vertex in the graph. Now, enqueue the edges linked to that vertex. Extract-Min, giving you the cheapest edge from your current vertex.
+
+    Mark the vertex as visited.
+
+    Continue until there are no more unvisited nodes.
+
+    For the priority queue, use an array. Enqueue by appending new edges to the end of the array. Extract-min by performing a linear search for the smallest item in the array.
+    \
+
+    \textbf{Proof: }
+    \
+
+    Let T be the set of edges in the MST generated with this algorithm. Let X be an alternative set of edges that is different from T that produces a cheaper MST. 
+
+    In this case, if $X_i$ is the first different vertex and $X_i > T_i$ such that $X_{i+1} < T_{i+1}$ and $X_i + X_{i+1} < T_i + T_{i+1}$, then our algorithm would simply have dequeued that cheaper edge directly, rather than going through the more expensive edge. Therefore our algorithm always finds the MST. 
+    \
+
+    \textbf{Runtime: }
+    \
     
+    Using an array for a priority queue takes O(V) time per extract-min. We run that a maximum of V times, once for each vertex. Therefore, our algorithm runs in $O(V^2)$ time, which is the same as $O(E)$ because $|E| = \Theta(V^2)$
 
 \end{solution}
 
@@ -224,23 +248,17 @@ Design and analyze an algorithm to find the minimum weight (shortest) $s-t$ path
 
 
 \begin{solution}
+    \
 
-%=================================================
-    % 1. THE ALGORITHM %=====================================================
-
-
-
+    \textbf{Algorithm: }
+    \
 
 
-%=================================================
-    % 2. PROOF OF CORRECTNESS %=====================================================
+    \textbf{Proof: }
+    \
 
-
-
-
-
-%=================================================
-    % 3. RUN TIME ANALYSIS %=====================================================
+    \textbf{Runtime: }
+    \
 
 
 \end{solution}
