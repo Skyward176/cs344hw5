@@ -248,19 +248,56 @@ Design and analyze an algorithm to find the minimum weight (shortest) $s-t$ path
 
 
 \begin{solution}
+
     \
 
-    \textbf{Algorithm: }
+    \textbf{Algorithm:}
+
     \
 
+    Initialize a boolean array for tracking visited vertices.
+    
+    Initialize an array of length $25V$, buckets.
+
+    Initialize an array of distances of size V. Initialize distances[s] to 0 rather than $\infty$
+
+    Put the starting vertex s into a linked list node at position 0 of the buckets array.
+
+    Set a pointer variable curDist to 0.
+
+    Set a value num elements = 1.
+
+    Initialize a table that matches nodes to their ancestors to reconstruct the path.
+    
+    While buckets isn't empty(num elements $> 0$), find the next nonempty bucket in the buckets array( linear search the array with the variable curDist for an index with a node in it).
+
+    Pick the first unvisted node in that bucket to explore next. 
+
+    Calculate the tentative distance to each unvisited node accessible from the current node.
+
+    Update those distances in the distance array if they are less than the current values. Move the nodes into the corresponding places in the buckets array based on the new distance array values
+
+    If we update any distances, update the prev table to match the current vertex to the previous as well.
+
+    When the priority queue is empty, follow the sequence in the prev table to find the minimum weight path from $s$ to any other vertex.
+    
 
     \textbf{Proof: }
     \
 
-    \textbf{Runtime: }
+    Fundamentally this is the same as dijkstra's. We can prove that our approach with an array of linked lists is functionally the same as a priority queue. By incrementing curDist from 0 up to the maximum possible distance of $25V$, we always extract-min. The bucket placement of a given node is the same as the priority, and shuffling nodes across the buckets array is the same as updating priority in a priority queue. 
+
+    Because this approach is the same as having a normal priority queue, dijkstra's doesn't change and we have a correct algorithm.
     \
 
+    \textbf{Runtime: }
 
+    \
+
+    The runtime analysis for this is the same as standard dijkstra's, however: our usage of an array of buckets allows us to update priorities in constant time. Since we only visit every vertex once, we only work on every edge once too. This results in E cost updates taking O(E) time.  
+    Extract min is still constant time(in this case this is the distance-based sweep of the buckets array), which means that it also still takes O(V) time to find each next vertex to check.
+    
+    Therefore, dijkstra's modified in this way runs in $O(V + E)$ when $W\leq25$
 \end{solution}
 
 \newpage
