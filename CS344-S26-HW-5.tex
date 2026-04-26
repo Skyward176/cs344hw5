@@ -24,6 +24,7 @@
 \usepackage{tikz} % For drawing diagrams
 \usepackage{siunitx} % For units
 \usepackage{graphicx}
+\usepackage{booktabs}
 
 \usetikzlibrary{arrows.meta, positioning}
 
@@ -213,24 +214,41 @@ To show that this algorithm fails, provide the following details:
 
 \begin{solution}
 
-%=================================================
-    % 1. THE ALGORITHM %=====================================================
+\
 
+Graph $G$:
+\begin{align*}
+s&: a (-1), t(0) \\
+a&: b(-1) \\
+b&: t(1)
+\end{align*}
 
+Graph $G'$:
+\begin{align*}
+s'&: a'(0), t'(1) \\
+a'&: b'(0) \\
+b'&: t(2)
+\end{align*}
 
+Dijkstra's Algorithm on $G'$: \\
+$s'a', a'b', s't', b't'$
 
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Vertex & Weight (Previous) \\
+\midrule
+$s'$    & $0$               \\
+$a'$    & $0 (s')$          \\
+$b'$    & $0 (a')$          \\
+$t'$    & $1 (s')$          \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-%=================================================
-    % 2. PROOF OF CORRECTNESS %=====================================================
+The algorithm then checks $bt$, which gives a worse path ($2$) than the existing path.
 
-
-
-
-
-%=================================================
-    % 3. RUN TIME ANALYSIS %=====================================================
-
-
+The actual shortest distance from $s$ to $t$ in $G$ is $s,a,b,t$, with a weight of $-1$. The algorithm returns $st$, which has a weight of $0$ in $G$. This fails, because by adding $1$ to every edge, the algorithm is adding $l$ to each path, where $l$ is the length of the path. This causes a bias for shorter paths, which might not be the fastest.
 \end{solution}
 
 \newpage
