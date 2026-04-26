@@ -436,24 +436,46 @@ Suppose you have an algorithm \( \text{VertexWeightedSP}(H, s) \) that solves th
 
 \begin{solution}
 
-%=================================================
-    % 1. THE ALGORITHM %=====================================================
+    \
 
+    \textbf{Data Structure: }
 
+    \begin{itemize}
+        \item \textbf{Setup:} We initialize an array of length equal to the maximum distance $B$. Initialize this array with null/empty linked list nodes.
+        \item \textbf{Insert:} When we insert a new item into this priority queue, we find the bucket corresponding to its priority (between zero and the maximum B) and insert it into the linked list present there.
+        \item \textbf{Extract-Min: } We traverse the array from beginning to end and return an item from the first non-null linked list(which is effectively a bucket).
+        \item \textbf{Decrease-Key:} We find the vertex in the array(its index is equal to its priority. Then we link it to whatever corresponding bucket it belongs with(its new priority). 
+    \end{itemize}
 
+    \
+    \textbf{Pseudocode: }
 
+    \
+    \begin{verbatim}
+        def insert(int priority, int id):
+            queue[priority].insert(id) # run a linked list insert on the linked list at the corresponding index for the priority of the item being added
 
-%=================================================
-    % 2. PROOF OF CORRECTNESS %=====================================================
+        def extract_min(prev_min):
+            for i in range(prev_min, queue.length):
+                if queue[i] is not null:
+                    return queue[i].pop()
+        def decrease_key(int id, int old_priority, int new_priority): # we must get this information before deciding to update a key, so we know we have it when its time to change the key
+            queue[old_priority].remove(id)
+            queue[new_priority]].insert(id)
 
+    \end{verbatim}
 
+    \textbf{Runtime: }
+        Inserting and decreasing keys are constant time operations because they just access the array and insert into a linked list. 
+        Because extract-min knows what the previous minimum is, although each run is O(B), accross all runs of extract min for a given graph, it will only take up O(B) time
+    \
 
+    \textbf{Runtime 2: }
+        As discussed above, extract-min will use O(B) time for the life of the algorithm.
 
+        The insert and decrease key will be run a maximum of V and E times respectively. This makes V irrelevant.
 
-%=================================================
-    % 3. RUN TIME ANALYSIS %=====================================================
-
-
+        In total, we now have a runtime of O(|E| + B)
 \end{solution}
 
 \newpage
