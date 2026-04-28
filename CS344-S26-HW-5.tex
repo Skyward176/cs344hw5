@@ -134,7 +134,7 @@
 
 \subsection*{Acknowledgment:} 
 \begin{tcolorbox}[colframe=black,colback=white,arc=5mm]
-Our team members, Ashlyn Balicki (zab30), Iris Martinez (bam322), and May Stepper (), collaborated extensively on this work. \textbf{We hereby affirm that all external assistance utilized in the preparation of this document has been properly acknowledged}.
+Our team members, Ashlyn Balicki (zab30), Iris Martinez (bam322), and May Stepper (mts263), collaborated extensively on this work. \textbf{We hereby affirm that all external assistance utilized in the preparation of this document has been properly acknowledged}.
 \end{tcolorbox}
 
 \finishline
@@ -502,7 +502,42 @@ Describe and analyze a modification of the Bellman–Ford algorithm that achieve
 
 
 \begin{solution}
-      
+    \
+
+    \textbf{Algorithm: }
+    \
+
+    First, initialize an array of size v of distances. Set the distance of the source (the first item) to 0 
+    Set an array prev that will let us recover the shortest path tree.
+
+    Run standard bellman ford and relax v-1 times
+
+    Run an additional relaxation after that. if an edge can still be relaxed, then we add the destination vertex t to a set of affected vertices. 
+    if there are affected vertices, there is a negative cycle somewhere. To find it, we pick any vertex in the set of affected vertices and follow the prev array v steps back from the affected vertex. This finds a vertex that is part of the cycle. The we trace prev backwards from x until we get back to x to return the negative cycle. 
+    If there are no affected vertices in the set, there are no negative cycles.
+
+    In order to update the affected distances, we can run bfs on the vertices in the set of affected vertices and set all encountered distances to $-\infty$
+    
+    \
+
+    \textbf{Proof: }
+
+    This is proven because if there are no negative cycles, then the shortest path to a vertex must contain at most v-1 edges. Bellman ford always finds the correct shortest path distances in v-1 iterations unless there is a negative cycle. Then we would notice a decrease past v-1 iterations. 
+    The nodes that do become relaxed must be part of that negative cycle for their distance to keep decreasing. By tracing the prev array from that node we know we can find the cycle.
+
+    Running BFS on these nodes lets us find all nodes on the cycle and set their distances to negative infinity.
+
+    \textbf{Runtime}
+        Initially this is regular bellman ford, which takes $O(V E)$
+
+        Iteration V takes an additional O(E) time.
+
+        Extracting a negative cycle takes O(V) time because it goes back V steps.
+
+        THe final BFS takes O(V+E) Time.
+
+
+        Therefore this is still in aggregate $O(V E)$
 \end{solution}
 
 \newpage
@@ -524,23 +559,25 @@ Describe an algorithm to compute $\delta(i, j)$ for all $i$ and $j$ that runs in
 
 \begin{solution}
 
-%=================================================
-    % 1. THE ALGORITHM %=====================================================
+    \
 
+    \textbf{Algorithm: } 
+    
+    \
 
+    Create a duplicate graph, $G' = (v', E')$ alongside a new source vertex s0. In addition, connect all vertices in V' to s0 to create V new edges with weight 0.
+    Run Bellman-Ford algorithm to find the shortest path weight from the new source to a vertex v, store each as h(v) - Bellman-Ford takes O(VE) time.
+    Reweight the original edges to ensure edge weights are non-negative so that Dijkstra's algorthm can be applied by calculating the new weight for every edge (u,v) : w*(u,v) = w(u,v) + h(u) - h(v). This takes O(E) time since it has to be calculated for every original edge.
+    Run Dijkstra's with a Fibonacci heap to find the shortest distance between any vertex in Vi and any of the remaining subsets. Do this by: picking a source from Vi, and setting the distance between it and all other vertices in Vi to 0. Dijkstra's can then be run as normal with all other vertices not in Vi's distances set to infinity, but make sure to store the shortest distances found for each subset independently as $\delta'(i, j)$. Also store which source and destination vertex resulted in that shortest distance between i and j as some kind of placeholder, like x(i, j) = [u, v]. Then adjust the weights such that
 
+    $\delta(i, j) = \delta'(i, j) - h(x(i, j)[0]) + h(x(i, j)[1])$
 
+    Do this for every subset. 
 
-%=================================================
-    % 2. PROOF OF CORRECTNESS %=====================================================
-
-
-
-
-
-%=================================================
-    % 3. RUN TIME ANALYSIS %=====================================================
-
+    One pass of Dijkstra's takes O(E+VlogV) time, but we run it k times, so it takes O(kE + kVlog(V)) time. I dunno how much time the additional operations must take, but it's probably not a whole lot of time? O(k) time at most... probably not enough to matter
+    
+    \textbf{Runtime: }
+        $O(VE + E + kE + kVlog(V))$ time. kE must be less than or equal to VE since k cannot be greater than V, so we can ignore that term, as well as E which is certainly less than VE or kE or kVlog(V). This leaves us with a runtime of O(VE + kVlog(V))
 
 \end{solution}
 
